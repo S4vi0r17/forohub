@@ -31,6 +31,8 @@ public class Topic {
 
     private String course;
 
+    public Topic() { }
+
     public Topic(CreateTopicDto topicRequest) {
         this.title = topicRequest.title();
         this.message = topicRequest.message();
