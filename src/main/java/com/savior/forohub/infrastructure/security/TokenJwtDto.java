@@ -1,4 +1,5 @@
 package com.savior.forohub.infrastructure.security;
 
-public class TokenJwtDto {
-}
+public record TokenJwtDto(
+        String jwtToken
+) { }

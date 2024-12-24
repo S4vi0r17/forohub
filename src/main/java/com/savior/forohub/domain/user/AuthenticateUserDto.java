@@ -1,4 +1,6 @@
 package com.savior.forohub.domain.user;
 
-public record AuthenticateUserDto() {
-}
+public record AuthenticateUserDto(
+        String username,
+        String password
+) { }
