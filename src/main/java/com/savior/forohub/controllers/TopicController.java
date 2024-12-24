@@ -69,24 +69,30 @@ public class TopicController {
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<TopicResponse> updateTopic(@PathVariable Long id, @RequestBody @Valid UpdateTopicDto updateTopicDto) {
-        Topic topic = topicRepository.getReferenceById(id);
-        topic.update(updateTopicDto);
-        topicRepository.save(topic);
-        return ResponseEntity.ok(new TopicResponse(
-                topic.getId(),
-                topic.getTitle(),
-                topic.getMessage(),
-                topic.getCreationDate(),
-                topic.getStatus().name(),
-                topic.getAuthor(),
-                topic.getCourse()
-        ));
+        Optional<Topic> topic = topicRepository.findById(id);
+        if (topic.isPresent()) {
+            topic.get().update(updateTopicDto);
+            return ResponseEntity.ok(new TopicResponse(
+                    topic.get().getId(),
+                    topic.get().getTitle(),
+                    topic.get().getMessage(),
+                    topic.get().getCreationDate(),
+                    topic.get().getStatus().name(),
+                    topic.get().getAuthor(),
+                    topic.get().getCourse()
+            ));
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> deleteTopic(@PathVariable Long id) {
-        topicRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        Optional<Topic> topic = topicRepository.findById(id);
+        if (topic.isPresent()) {
+            topicRepository.delete(topic.get());
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
