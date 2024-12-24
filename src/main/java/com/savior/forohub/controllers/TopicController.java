@@ -1,6 +1,7 @@
 package com.savior.forohub.controllers;
 
 import com.savior.forohub.domain.topic.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/topics")
@@ -21,6 +20,7 @@ public class TopicController {
     @Autowired
     private TopicRepository topicRepository;
 
+    @SecurityRequirement(name = "bearer-key")
     @PostMapping
     @Transactional
     public ResponseEntity<TopicResponse> createTopic(@RequestBody @Valid CreateTopicDto topicRequest) {
@@ -66,6 +66,7 @@ public class TopicController {
 
     }
 
+    @SecurityRequirement(name = "bearer-key")
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<TopicResponse> updateTopic(@PathVariable Long id, @RequestBody @Valid UpdateTopicDto updateTopicDto) {
@@ -85,6 +86,7 @@ public class TopicController {
         return ResponseEntity.notFound().build();
     }
 
+    @SecurityRequirement(name = "bearer-key")
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> deleteTopic(@PathVariable Long id) {
