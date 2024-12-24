@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity(name = "Topic")
 @Table(name = "topics")
@@ -21,7 +22,7 @@ public class Topic {
 
     private String message;
 
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -33,7 +34,7 @@ public class Topic {
     public Topic(CreateTopicDto topicRequest) {
         this.title = topicRequest.title();
         this.message = topicRequest.message();
-        this.creationDate = LocalDate.now();
+        this.creationDate = LocalDateTime.now();
         this.status = Status.ACTIVE;
         this.author = topicRequest.author();
         this.course = topicRequest.course();
@@ -51,7 +52,7 @@ public class Topic {
         return message;
     }
 
-    public LocalDate getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 

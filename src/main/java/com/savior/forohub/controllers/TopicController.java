@@ -5,6 +5,7 @@ import com.savior.forohub.domain.topic.Topic;
 import com.savior.forohub.domain.topic.TopicRepository;
 import com.savior.forohub.domain.topic.TopicResponse;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class TopicController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<TopicResponse> createTopic(@RequestBody CreateTopicDto topicRequest) {
+    public ResponseEntity<TopicResponse> createTopic(@RequestBody @Valid CreateTopicDto topicRequest) {
         Topic topic = topicRepository.save(new Topic(topicRequest));
         return ResponseEntity.ok(new TopicResponse(
                 topic.getId(),
