@@ -42,6 +42,20 @@ public class Topic {
         this.course = topicRequest.course();
     }
 
+    public void update(UpdateTopicDto updateTopicDto) {
+        if (updateTopicDto.title() != null) {
+            this.title = updateTopicDto.title();
+        }
+
+        if (updateTopicDto.message() != null) {
+            this.message = updateTopicDto.message();
+        }
+
+        if (updateTopicDto.status() != null) {
+            this.status = updateTopicDto.status();
+        }
+    }
+
     public Long getId() {
         return id;
     }
