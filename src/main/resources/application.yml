@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: forohub
+  datasource:
+    url: jdbc:postgresql://localhost:5432/forohub
+    username: postgres
+    password: benites1234
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+forohub:
+  security:
+    secret: ${JWT_SECRET:secret}
+
+server:
+  error:
+    include-stacktrace: never
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.hibernate: DEBUG
